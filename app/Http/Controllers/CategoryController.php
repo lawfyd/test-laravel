@@ -41,7 +41,7 @@ class CategoryController extends Controller
             'name' => 'required'
         ]);
         Category::create($request->all());
-        return redirect()->route('categories.index');
+        return redirect()->route('categories.index')->with('message', 'Category has been added successfully');
     }
 
     /**
@@ -84,7 +84,7 @@ class CategoryController extends Controller
         $category->update($request->all());
         return redirect()
             ->route('categories.edit', $id)
-            ->with(['success' => 'Успешно сохранено']);
+            ->with('message', 'Category has been saved');
     }
 
     /**
@@ -95,6 +95,9 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        dd(__METHOD__);
+        Category::find($id)->delete();
+        return redirect()
+            ->route('categories.index', $id)
+            ->with('message', 'Category has been deleted');
     }
 }

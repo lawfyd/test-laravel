@@ -4,6 +4,11 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
+                @if(Session::has('message'))
+                    <div class="alert alert-success" id="successMessage">
+                        {{ Session::get('message') }}
+                    </div>
+                @endif
                 <div class="card">
                     <div class="card-blody">
                         <table class="table table-hover">

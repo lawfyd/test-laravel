@@ -1,17 +1,27 @@
 @extends('layouts.app')
 
 @section('content')
-    <form method="POST" action="{{ route('categories.update', $category->id) }}">
-        {{--PATCH because POST not in routelists--}}
-        @method('PATCH')
-        @csrf
-        <div class="row justify-content-center">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-body">
-                        <br>
-                        <div class="tab-content">
-                            <div class="tab-pane active" id="maindata">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            @if(Session::has('message'))
+                <div class="alert alert-success" id="successMessage">
+                    {{ Session::get('message') }}
+                </div>
+            @endif
+            <div class="card">
+                <div class="card-body">
+                    <form method="POST" action="{{ route('categories.destroy', $category->id) }}">
+                        {{ csrf_field() }}
+                        {{ method_field('DELETE') }}
+                        <input type="submit" class="btn btn-danger delete-post" value="Delete">
+                    </form>
+                    <br>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="maindata">
+                            <form method="POST" action="{{ route('categories.update', $category->id) }}">
+                                {{--PATCH because POST not in routelists--}}
+                                @method('PATCH')
+                                @csrf
                                 <div class="form-group">
                                     @include('errors.errors')
                                     <label for="name" class="@if($errors->has('name')) text-danger @endif">Title</label>
@@ -28,12 +38,13 @@
                                               rows="3">{{ old('description', $category->description) }}</textarea>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Save</button>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>
-
             </div>
+
         </div>
-    </form>
+    </div>
+
 @endsection()

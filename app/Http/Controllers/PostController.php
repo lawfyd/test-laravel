@@ -27,7 +27,8 @@ class PostController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('posts.create', compact('categories'));
+        return view('posts.create', compact('categories')
+        );
     }
 
     /**
@@ -56,7 +57,7 @@ class PostController extends Controller
         $post = Post::add($request->all());
         $post->uploadFile($request);
 
-        return redirect()->route('main');
+        return redirect()->route('main')->with('message', 'Post has been added');
     }
 
     /**
@@ -118,17 +119,24 @@ class PostController extends Controller
         }
         $post->uploadFile($request);
 
-        return redirect()->route('posts.show', $id);
+        return redirect()->route('posts.show', $id)
+            ->with('message', 'Post has been saved');
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
-        //
+        $post = Post::find($id);
+        $post->removeFile($post->file);
+        $post->delete();
+
+        return redirect()
+            ->route('main')
+            ->with('message', 'Post has been deleted');
     }
 }
