@@ -67,7 +67,8 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        //
+        $post = Post::findOrFail($id);
+        return view('posts.show', compact('post'));
     }
 
     /**
@@ -117,7 +118,7 @@ class PostController extends Controller
         }
         $post->uploadFile($request);
 
-        return redirect()->route('main');
+        return redirect()->route('posts.show', $id);
     }
 
     /**

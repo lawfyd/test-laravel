@@ -51,7 +51,7 @@
                                            class="form-control"
                                            class="@if($errors->has('file')) text-danger @endif">
                                 </div>
-                                <button type="submit" class="btn btn-primary">Create</button>
+                                <button type="submit" class="btn btn-primary">Change</button>
                             </div>
                         </div>
                     </div>
