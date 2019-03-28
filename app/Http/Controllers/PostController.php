@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
-class CategoryController extends Controller
+class PostController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +16,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $paginator = Category::paginate(10);
-        return view('categories.index', compact('paginator'));
+        abort(404);
     }
 
     /**
@@ -25,7 +26,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('categories.create');
+        $categories = Category::all();
+        return view('posts.create', compact('categories'));
     }
 
     /**
@@ -36,11 +38,27 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'name' => 'required'
+        $categories = Category::all();
+        // get string ids of categories
+        $categoriesId = implode(', ', $categories->pluck('id')->toArray());
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'content' => 'required',
+            'category_id' => 'required|numeric|in:' . $categoriesId,
+            'file' => 'max:2048'
         ]);
-        Category::create($request->all());
-        return redirect()->route('categories.index');
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $post = Post::add($request->all());
+        $post->uploadFile($request);
+
+        return redirect()->route('main');
     }
 
     /**
@@ -51,8 +69,7 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        $category = Category::findOrFail($id);
-        return view('categories.show', compact('category'));
+        //
     }
 
     /**
@@ -63,8 +80,8 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $category = Category::findOrFail($id);
-        return view('categories.edit', compact('category'));
+        $post = Post::findOrFail($id);
+        return view('posts.edit', compact('post'));
     }
 
     /**
@@ -72,18 +89,11 @@ class CategoryController extends Controller
      *
      * @param  \Illuminate\Http\Request $request
      * @param  int $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'name' => 'required'
-        ]);
-        $category = Category::find($id);
-        $category->update($request->all());
-        return redirect()
-            ->route('categories.edit', $id)
-            ->with(['success' => 'Успешно сохранено']);
+        //
     }
 
     /**
@@ -94,6 +104,6 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        dd(__METHOD__);
+        //
     }
 }

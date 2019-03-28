@@ -12,11 +12,13 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('main');
+})->name('main');
 
 
 //Route::get('/categories', 'CategoriesController@index');
 
 
 Route::resource('categories', 'CategoryController');
+
+Route::resource('posts', 'PostController');

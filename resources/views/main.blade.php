@@ -11,7 +11,6 @@
                             Cras justo odio
                         </a>
                         <a href="{{ route('categories.index') }}" class="list-group-item list-group-item-action">Categories</a>
-                        <a href="#" class="list-group-item list-group-item-action">Posts</a>
                         <a href="#" class="list-group-item list-group-item-action disabled">Vestibulum at eros</a>
                     </div>
                 </div>
