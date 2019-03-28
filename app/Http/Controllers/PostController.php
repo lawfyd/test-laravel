@@ -38,9 +38,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $categories = Category::all();
-        // get string ids of categories
-        $categoriesId = implode(', ', $categories->pluck('id')->toArray());
+        $categoriesId = Post::getCategoriesIds();
 
         $validator = Validator::make($request->all(), [
             'name' => 'required',
@@ -81,7 +79,8 @@ class PostController extends Controller
     public function edit($id)
     {
         $post = Post::findOrFail($id);
-        return view('posts.edit', compact('post'));
+        $categories = Category::all();
+        return view('posts.edit', compact('post', 'categories'));
     }
 
     /**
@@ -93,7 +92,32 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $categoriesId = Post::getCategoriesIds();
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'content' => 'required',
+            'category_id' => 'required|numeric|in:' . $categoriesId,
+            'file' => 'max:2048'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $post = Post::find($id);
+        $post->edit($request->all());
+
+        //delete exists file
+        if($request->file){
+            $post->removeFile($post->file);
+            $post->file = null;
+        }
+        $post->uploadFile($request);
+
+        return redirect()->route('main');
     }
 
     /**

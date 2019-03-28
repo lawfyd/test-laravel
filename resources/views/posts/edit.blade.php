@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <form method="POST" action="{{ route('posts.update') }}" enctype="multipart/form-data">
+    <form method="POST" action="{{ route('posts.update', $post->id) }}" enctype="multipart/form-data">
         @method('PATCH')
         @csrf
         <div class="row justify-content-center">
@@ -14,7 +14,7 @@
                                 <div class="form-group">
                                     @include('errors.errors')
                                     <label for="name" class="@if($errors->has('name')) text-danger @endif">Name</label>
-                                    <input name="name" value="{{ old('name') }}" id="name" type="text"
+                                    <input name="name" value="{{ $post->name }}" id="name" type="text"
                                            class="form-control @if($errors->has('name')) is-invalid @endif">
                                 </div>
 
@@ -23,7 +23,7 @@
                                            class="@if($errors->has('content')) text-danger @endif">Content</label>
                                     <textarea name="content" id="content" type="text"
                                               class="form-control @if($errors->has('content')) is-invalid @endif"
-                                              rows="3">{{ old('content') }}</textarea>
+                                              rows="3">{{ $post->content }}</textarea>
                                 </div>
 
                                 <div class="form-group">
@@ -38,7 +38,7 @@
                                             <option value="">Выберите категорию</option>
                                             @foreach($categories as $category)
                                                 <option value="{{ $category->id }}"
-                                                        @if($category->id == old("category_id")) selected @endif>
+                                                        @if($category->id == $post->category_id) selected @endif>
                                                     {{ $category->name }}</option>
                                             @endforeach
                                         </select>

@@ -11,7 +11,7 @@ class Post extends Model
     /*
      * mass assignment
      */
-    protected $fillable = ['name', 'content', 'category_id', 'file'];
+    protected $fillable = ['name', 'content', 'category_id'];
 
     public function category()
     {
@@ -32,11 +32,16 @@ class Post extends Model
         return $post;
     }
 
-    public function remove()
+    public function edit($fields)
     {
-        //delete file
-        Storage::delete('uploads/' . $this->file);
-        $this->delete();
+
+        $this->fill($fields);
+        $this->save();
+    }
+
+    public function removeFile($filename)
+    {
+        Storage::delete($filename);
     }
 
     public function uploadFile($request)
@@ -47,6 +52,19 @@ class Post extends Model
         $file = Storage::putFile('uploads', $request->file('file'));
         $this->file = $file;
         $this->save();
+    }
+
+    /**
+     * get string ids of categories.
+     *
+     * @return string
+     */
+
+    public static function getCategoriesIds()
+    {
+        $categories = Category::all();
+        $categoriesId = implode(', ', $categories->pluck('id')->toArray());
+        return $categoriesId;
     }
 
 //    public function setCategory($id)

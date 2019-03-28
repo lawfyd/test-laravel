@@ -15,18 +15,17 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($paginator as $item)
-                                @php /** @var \App\Category $item */ @endphp
+                            @foreach($categories as $category)
                                 <tr>
-                                    <td>{{ $item->id }}</td>
+                                    <td>{{ $category->id }}</td>
                                     <td>
-                                        <a href="{{ route('categories.show', $item->id) }}">
-                                            {{ $item->name }}
+                                        <a href="{{ route('categories.show', $category->id) }}">
+                                            {{ $category->name }}
                                         </a>
                                     </td>
                                     <td>
-                                        @if($item->description)
-                                            {{ $item->description }}
+                                        @if($category->description)
+                                            {{ $category->description }}
                                         @else
                                             Нет описания
                                         @endif
@@ -39,17 +38,5 @@
                 </div>
             </div>
         </div>
-        @if($paginator->total() > $paginator->count())
-            <br>
-            <div class="row justify-content-center">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-body">
-                            {{ $paginator->links() }}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        @endif
     </div>
 @endsection()

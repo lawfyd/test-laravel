@@ -15,7 +15,7 @@
                                 <div class="form-group">
                                     @include('errors.errors')
                                     <label for="name" class="@if($errors->has('name')) text-danger @endif">Title</label>
-                                    <input name="name" value="{{ $category->name }}" id="title" type="text"
+                                    <input name="name" value="{{ $category->name }}" id="name" type="text"
                                            class="form-control @if($errors->has('name')) is-invalid @endif">
                                 </div>
 
