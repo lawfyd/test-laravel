@@ -20,10 +20,9 @@
             </div>
         </div>
     </div>
+    <br>
     <section class="comments">
-        <h3>Комментарии</h3>
-        <comments-component :id="{{$post->id}}" :type="'post'"></comments-component>
-
-        <example-component></example-component>
+        <h3>Comments:</h3>
+        <comments-component :id="{{$post->id}}" :type="'posts'"></comments-component>
     </section>
 @endsection()

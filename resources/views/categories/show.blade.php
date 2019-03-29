@@ -12,23 +12,27 @@
                         <p>{{$category->description}}<br/>
                             <a href="{{route('categories.edit', $category->id)}}">Изменить</a>
                         </p>
-
                         <h3>Posts:</h3>
                         <div class="row posts-list">
                             <ul>
                                 @foreach($category->posts as $post)
                                     <li><a href="{{ route('posts.show', $post->id) }}">{{ $post->name }}</a></li>
                                     <p>{{ $post->content }}</p>
+                                    <br>
                                 @endforeach
                             </ul>
                         </div>
                     </div>
-                    <div class="comments">
-                        <h3>Comments:</h3>
+                    <br>
 
-                    </div>
+                    <section class="comments">
+                        <h3>Comments:</h3>
+                        <comments-component :id="{{$category->id}}" :type="'categories'"></comments-component>
+                    </section>
+
                 </div>
             </div>
         </div>
+    </div>
     </div>
 @endsection()

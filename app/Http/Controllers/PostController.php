@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Comment;
 use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -69,6 +70,7 @@ class PostController extends Controller
     public function show($id)
     {
         $post = Post::findOrFail($id);
+        //$comments = Comment::getComments('post', $id);
         return view('posts.show', compact('post'));
     }
 

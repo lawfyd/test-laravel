@@ -22,3 +22,6 @@ Route::get('/', function () {
 Route::resource('categories', 'CategoryController');
 
 Route::resource('posts', 'PostController');
+
+Route::get('/comments/{type}/{id}', 'CommentController@comments');
+Route::post('comments/{type}/{id}', 'CommentController@postComment');
