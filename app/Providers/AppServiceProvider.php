@@ -34,7 +34,7 @@ class AppServiceProvider extends ServiceProvider
         }, 'The name must be Name Surname');
 
         Relation::morphMap([
-            'category' => 'App\Category',
+            'categories' => 'App\Category',
             'posts' => 'App\Post',
         ]);
     }
