@@ -35,7 +35,7 @@
                                         @if($category->description)
                                             {{ $category->description }}
                                         @else
-                                            Нет описания
+                                            No description
                                         @endif
                                     </td>
                                 </tr>
