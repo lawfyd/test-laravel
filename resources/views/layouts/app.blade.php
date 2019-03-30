@@ -41,7 +41,6 @@
     <br>
     <div id="blog-content">
         <div class="container">
-
             @yield('content')
         </div>
     </div>

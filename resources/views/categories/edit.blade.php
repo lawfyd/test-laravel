@@ -19,7 +19,7 @@
                     <div class="tab-content">
                         <div class="tab-pane active" id="maindata">
                             <form method="POST" action="{{ route('categories.update', $category->id) }}">
-                                @method('PATCH')
+                                @method('PUT')
                                 @csrf
                                 <div class="form-group">
                                     @include('errors.errors')

@@ -10,24 +10,21 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/', 'CategoryController@index')->name('categories.index');
 
-Route::get('/', function () {
-    return view('main');
-})->name('main');
-
-
-//Route::get('/categories', 'CategoriesController@index');
-
-
-Route::resource('categories', 'CategoryController');
+Route::get('/categories/create', 'CategoryController@create')->name('categories.create');
+Route::post('/categories/', 'CategoryController@store')->name('categories.store');
+Route::get('/categories/{id}', 'CategoryController@show')->name('categories.show');
+Route::get('/categories/edit/{id}', 'CategoryController@edit')->name('categories.edit');
+Route::put('/categories/update/{id}', 'CategoryController@update')->name('categories.update');
+Route::put('/categories/destroy/{id}', 'CategoryController@update')->name('categories.destroy');
 
 Route::resource('posts', 'PostController');
 
 Route::get('/comments/{type}/{id}', 'CommentController@comments');
 Route::post('comments/{type}/{id}', 'CommentController@postComment');
 
-Route::get('/browsers/', 'SessionController@accessSessionData');
-
+/* browser statistic */
 Route::get('/browsers/', function () {
     return \App\Session\SessionData::getData();
 });

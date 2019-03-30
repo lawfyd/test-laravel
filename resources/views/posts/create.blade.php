@@ -35,7 +35,7 @@
                                         <select name="category_id"
                                                 class="form-control @if($errors->has('category_id')) text-danger @endif"
                                                 id="category_id">
-                                            <option value="">Выберите категорию</option>
+                                            <option value="">Select category</option>
                                             @foreach($categories as $category)
                                                 <option value="{{ $category->id }}"
                                                         @if($category->id == old("category_id")) selected @endif>

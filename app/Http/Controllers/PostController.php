@@ -58,7 +58,7 @@ class PostController extends Controller
         $post = Post::add($request->all());
         $post->uploadFile($request);
 
-        return redirect()->route('main')->with('message', 'Post has been added');
+        return redirect()->route('categories.index')->with('message', 'Post has been added');
     }
 
     /**
@@ -138,7 +138,7 @@ class PostController extends Controller
         $post->delete();
 
         return redirect()
-            ->route('main')
+            ->route('categories.index')
             ->with('message', 'Post has been deleted');
     }
 }

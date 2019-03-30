@@ -11,7 +11,7 @@
             <div class="card">
                 <div class="card-body">
                     <br>
-                    <a href="{{route('posts.edit', $post->id)}}">Изменить</a>
+                    <a href="{{route('posts.edit', $post->id)}}">Edit</a>
                     <h1>{{$post->name}}</h1>
                     <p>{{ $post->content }}</p>
                     <br/>

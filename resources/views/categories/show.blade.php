@@ -10,7 +10,7 @@
                     <div class="category-show">
                         <h1>{{$category->name}}</h1>
                         <p>{{$category->description}}<br/>
-                            <a href="{{route('categories.edit', $category->id)}}">Изменить</a>
+                            <a href="{{route('categories.edit', $category->id)}}">Edit</a>
                         </p>
                         <h3>Posts:</h3>
                         <div class="row posts-list">
