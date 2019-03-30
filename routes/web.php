@@ -25,3 +25,9 @@ Route::resource('posts', 'PostController');
 
 Route::get('/comments/{type}/{id}', 'CommentController@comments');
 Route::post('comments/{type}/{id}', 'CommentController@postComment');
+
+Route::get('/browsers/', 'SessionController@accessSessionData');
+
+Route::get('/browsers/', function () {
+    return \App\Session\SessionData::getData();
+});
