@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Category;
-use App\Post;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -41,7 +40,7 @@ class CategoryController extends Controller
             'name' => 'required'
         ]);
         Category::create($request->all());
-        return redirect()->route('categories.index')->with('message', 'Category has been added successfully');
+        return redirect()->route('categories.index')->with('message', 'Category has been saved');
     }
 
     /**
@@ -80,8 +79,10 @@ class CategoryController extends Controller
         $this->validate($request, [
             'name' => 'required'
         ]);
+
         $category = Category::find($id);
         $category->update($request->all());
+
         return redirect()
             ->route('categories.edit', $id)
             ->with('message', 'Category has been saved');
@@ -97,7 +98,7 @@ class CategoryController extends Controller
     {
         Category::find($id)->delete();
         return redirect()
-            ->route('categories.index', $id)
+            ->route('categories.index')
             ->with('message', 'Category has been deleted');
     }
 }

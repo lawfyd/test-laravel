@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Category;
-use App\Comment;
 use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -36,7 +35,7 @@ class PostController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
@@ -58,7 +57,7 @@ class PostController extends Controller
         $post = Post::add($request->all());
         $post->uploadFile($request);
 
-        return redirect()->route('categories.index')->with('message', 'Post has been added');
+        return redirect()->route('categories.index')->with('message', 'Post has been created');
     }
 
     /**
@@ -70,7 +69,6 @@ class PostController extends Controller
     public function show($id)
     {
         $post = Post::findOrFail($id);
-        //$comments = Comment::getComments('post', $id);
         return view('posts.show', compact('post'));
     }
 
@@ -84,6 +82,7 @@ class PostController extends Controller
     {
         $post = Post::findOrFail($id);
         $categories = Category::all();
+
         return view('posts.edit', compact('post', 'categories'));
     }
 
@@ -92,7 +91,7 @@ class PostController extends Controller
      *
      * @param  \Illuminate\Http\Request $request
      * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, $id)
     {
@@ -139,6 +138,6 @@ class PostController extends Controller
 
         return redirect()
             ->route('categories.index')
-            ->with('message', 'Post has been deleted');
+            ->with('message', 'Post deleted');
     }
 }

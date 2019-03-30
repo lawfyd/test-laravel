@@ -1,16 +1,17 @@
 @extends('layouts.app')
 
 @section('content')
-    <form method="POST" action="{{ route('categories.store') }}">
-        {{--PATCH because POST not in routelists--}}
-        @csrf
-        <div class="row justify-content-center">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-body">
-                        <br>
-                        <div class="tab-content">
-                            <div class="tab-pane active" id="maindata">
+
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <br>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="maindata">
+
+                            <form method="POST" action="{{ route('categories.store') }}">
+                                @csrf
                                 <div class="form-group">
                                     @include('errors.errors')
                                     <label for="name" class="@if($errors->has('name')) text-danger @endif">Name</label>
@@ -24,13 +25,15 @@
                                               class="form-control" rows="3">
                                     </textarea>
                                 </div>
+
                                 <button type="submit" class="btn btn-primary">Create</button>
-                            </div>
+                            </form>
+
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
-    </form>
+    </div>
+
 @endsection()

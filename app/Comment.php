@@ -11,8 +11,7 @@ class Comment extends Model
     {
         $comments = Comment::where('commentable_type', $commentable_type)
             ->where('commentable_id', $commentable_id)->get();
-//        $comments = $comments->toArray();
-//        dd($comments);
+
         return $comments;
     }
 
@@ -26,12 +25,5 @@ class Comment extends Model
         $comment->save();
 
         return $comment;
-    }
-
-    public function messages()
-    {
-        return [
-            'is_author' => 'A title is required',
-        ];
     }
 }

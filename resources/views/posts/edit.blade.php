@@ -5,11 +5,13 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
+
                     <form method="POST" action="{{ route('posts.destroy', $post->id) }}">
                         {{ csrf_field() }}
                         {{ method_field('DELETE') }}
                         <input type="submit" class="btn btn-danger delete-post" value="Delete">
                     </form>
+
                     <br>
                     <div class="tab-content">
                         <div class="tab-pane active" id="maindata">
@@ -33,22 +35,19 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <div class="form-group">
-                                        <label for="category_id"
-                                               class="@if($errors->has('category_id')) text-danger @endif">
-                                            Category
-                                        </label>
-                                        <select name="category_id"
-                                                class="form-control @if($errors->has('category_id')) text-danger @endif"
-                                                id="category_id">
-                                            <option value="">Выберите категорию</option>
-                                            @foreach($categories as $category)
-                                                <option value="{{ $category->id }}"
-                                                        @if($category->id == $post->category_id) selected @endif>
-                                                    {{ $category->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
+                                    <label for="category_id"
+                                           class="@if($errors->has('category_id')) text-danger @endif">Category
+                                    </label>
+                                    <select name="category_id"
+                                            class="form-control @if($errors->has('category_id')) text-danger @endif"
+                                            id="category_id">
+                                        <option value="">Выберите категорию</option>
+                                        @foreach($categories as $category)
+                                            <option value="{{ $category->id }}"
+                                                    @if($category->id == $post->category_id) selected @endif>
+                                                {{ $category->name }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
 
                                 <div class="form-group">
@@ -57,6 +56,7 @@
                                            class="form-control"
                                            class="@if($errors->has('file')) text-danger @endif">
                                 </div>
+
                                 <button type="submit" class="btn btn-primary">Save</button>
                             </form>
 
@@ -66,5 +66,4 @@
             </div>
         </div>
     </div>
-
 @endsection()

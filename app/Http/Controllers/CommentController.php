@@ -12,7 +12,7 @@ class CommentController extends Controller
         return Comment::getComments($commentable_type, $commentable_id);
     }
 
-    public function postComment($type, $id, Request $request)
+    public function postComment(Request $request)
     {
         $this->validate(request(), [
             'author' => 'required|is_author',

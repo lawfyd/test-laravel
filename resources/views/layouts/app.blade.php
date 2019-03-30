@@ -33,7 +33,6 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('posts.create') }}">Create post</a>
                 </li>
-
             </ul>
             <browser-component></browser-component>
         </div>

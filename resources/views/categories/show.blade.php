@@ -15,11 +15,13 @@
                         <h3>Posts:</h3>
                         <div class="row posts-list">
                             <ul>
+
                                 @foreach($category->posts as $post)
                                     <li><a href="{{ route('posts.show', $post->id) }}">{{ $post->name }}</a></li>
                                     <p>{{ $post->content }}</p>
                                     <br>
                                 @endforeach
+
                             </ul>
                         </div>
                     </div>

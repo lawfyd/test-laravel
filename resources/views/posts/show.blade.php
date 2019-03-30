@@ -3,11 +3,13 @@
 @section('content')
     <div class="row justify-content-center">
         <div class="col-md-12">
+
             @if(Session::has('message'))
                 <div class="alert alert-success" id="successMessage">
                     {{ Session::get('message') }}
                 </div>
             @endif
+
             <div class="card">
                 <div class="card-body">
                     <br>
@@ -15,7 +17,7 @@
                     <h1>{{$post->name}}</h1>
                     <p>{{ $post->content }}</p>
                     <br/>
-                    @if($post->file) <a href="/app/{{ $post->file }}">Download file </a> @endif
+                    @if($post->file) <a href="/app/{{ $post->file }}" target="_blank">Download file </a> @endif
                 </div>
             </div>
         </div>

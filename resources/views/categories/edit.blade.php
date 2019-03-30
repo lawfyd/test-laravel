@@ -3,21 +3,26 @@
 @section('content')
     <div class="row justify-content-center">
         <div class="col-md-12">
+
             @if(Session::has('message'))
                 <div class="alert alert-success" id="successMessage">
                     {{ Session::get('message') }}
                 </div>
             @endif
+
             <div class="card">
                 <div class="card-body">
+
                     <form method="POST" action="{{ route('categories.destroy', $category->id) }}">
                         {{ csrf_field() }}
                         {{ method_field('DELETE') }}
                         <input type="submit" class="btn btn-danger delete-post" value="Delete">
                     </form>
+
                     <br>
                     <div class="tab-content">
                         <div class="tab-pane active" id="maindata">
+
                             <form method="POST" action="{{ route('categories.update', $category->id) }}">
                                 @method('PATCH')
                                 @csrf
@@ -38,11 +43,11 @@
                                 </div>
                                 <button type="submit" class="btn btn-primary">Save</button>
                             </form>
+
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 

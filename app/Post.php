@@ -7,10 +7,6 @@ use Illuminate\Support\Facades\Storage;
 
 class Post extends Model
 {
-
-    /*
-     * mass assignment
-     */
     protected $fillable = ['name', 'content', 'category_id'];
 
     public function category()
@@ -54,7 +50,7 @@ class Post extends Model
     }
 
     /**
-     * get string ids of categories.
+     * get ids all categories.
      *
      * @return string
      */
@@ -65,12 +61,4 @@ class Post extends Model
         $categoriesId = implode(', ', $categories->pluck('id')->toArray());
         return $categoriesId;
     }
-
-//    public function setCategory($id)
-//    {
-//        if($id == null) return;
-//
-//        $this->category_id = $id;
-//        $this->save();
-//    }
 }
