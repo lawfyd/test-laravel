@@ -15,7 +15,7 @@
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Categorie</th>
+                                <th>Categories</th>
                                 <th>Description</th>
                             </tr>
                             </thead>

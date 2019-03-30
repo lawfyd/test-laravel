@@ -8,9 +8,9 @@
                 <div class="card-body">
                     <br>
                     <div class="category-show">
+                        <a href="{{route('categories.edit', $category->id)}}">Edit</a>
                         <h1>{{$category->name}}</h1>
                         <p>{{$category->description}}<br/>
-                            <a href="{{route('categories.edit', $category->id)}}">Edit</a>
                         </p>
                         <h3>Posts:</h3>
                         <div class="row posts-list">
