@@ -7,12 +7,12 @@ use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
-    public function comments($commentable_type, $commentable_id)
+    public function show($commentable_type, $commentable_id)
     {
         return Comment::getComments($commentable_type, $commentable_id);
     }
 
-    public function postComment(Request $request)
+    public function save(Request $request)
     {
         $this->validate(request(), [
             'author' => 'required|is_author',

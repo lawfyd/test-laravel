@@ -10,7 +10,8 @@ class Comment extends Model
     public static function getComments($commentable_type, $commentable_id)
     {
         $comments = Comment::where('commentable_type', $commentable_type)
-            ->where('commentable_id', $commentable_id)->get();
+            ->where('commentable_id', $commentable_id)
+            ->get();
 
         return $comments;
     }

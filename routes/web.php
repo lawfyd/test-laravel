@@ -21,8 +21,8 @@ Route::delete('/categories/destroy/{id}', 'CategoryController@destroy')->name('c
 
 Route::resource('posts', 'PostController');
 
-Route::get('/comments/{type}/{id}', 'CommentController@comments');
-Route::post('comments/{type}/{id}', 'CommentController@postComment');
+Route::get('/comments/{type}/{id}', 'CommentController@show');
+Route::post('comments/{type}/{id}', 'CommentController@save');
 
 /* browser statistic */
 Route::get('/browsers/', function () {
