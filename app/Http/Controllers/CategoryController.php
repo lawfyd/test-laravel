@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
-use Illuminate\Http\Request;
+use App\Http\Requests\CategoryRequest;
 
 class CategoryController extends Controller
 {
@@ -34,12 +34,12 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
-        $this->validate($request, [
-            'name' => 'required'
-        ]);
-        Category::create($request->all());
+        $data = $request->all();
+        $category = new Category();
+        $category->create($data);
+
         return redirect()->route('categories.index')->with('message', 'Category has been saved');
     }
 
@@ -74,13 +74,11 @@ class CategoryController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(CategoryRequest $request, $id)
     {
-        $this->validate($request, [
-            'name' => 'required'
-        ]);
 
         $category = Category::find($id);
+
         $category->update($request->all());
 
         return redirect()

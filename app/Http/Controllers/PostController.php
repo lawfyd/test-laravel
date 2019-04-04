@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Post;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\PostCreateRequest;
 use App\Http\Requests\PostUpdateRequest;
 
@@ -84,6 +82,7 @@ class PostController extends Controller
     public function update(PostUpdateRequest $request, $id)
     {
         $post = Post::find($id);
+        $post->update($request->all());
 
         if($request->file){
             $post->removeFile($post->file);
