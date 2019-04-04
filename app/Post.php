@@ -19,21 +19,6 @@ class Post extends Model
         return $this->morphMany('App\Comment', 'commentable');
     }
 
-    public static function add($fields)
-    {
-        $post = new static;
-        $post->fill($fields);
-        $post->save();
-
-        return $post;
-    }
-
-    public function edit($fields)
-    {
-        $this->fill($fields);
-        $this->save();
-    }
-
     public function removeFile($filename)
     {
         Storage::delete($filename);
@@ -47,18 +32,5 @@ class Post extends Model
         $file = Storage::putFile('uploads', $request->file('file'));
         $this->file = $file;
         $this->save();
-    }
-
-    /**
-     * get ids all categories.
-     *
-     * @return string
-     */
-
-    public static function getCategoriesIds()
-    {
-        $categories = Category::all();
-        $categoriesId = implode(', ', $categories->pluck('id')->toArray());
-        return $categoriesId;
     }
 }
