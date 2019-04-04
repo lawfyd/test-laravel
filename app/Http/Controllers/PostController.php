@@ -6,6 +6,8 @@ use App\Category;
 use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\PostCreateRequest;
+use App\Http\Requests\PostUpdateRequest;
 
 class PostController extends Controller
 {
@@ -37,25 +39,11 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(PostCreateRequest $request)
     {
-        $categoriesId = Post::getCategoriesIds();
-
-        $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'content' => 'required',
-            'category_id' => 'required|numeric|in:' . $categoriesId,
-            'file' => 'max:2048'
-        ]);
-
-        if ($validator->fails()) {
-            return redirect()->back()
-                ->withErrors($validator)
-                ->withInput();
-        }
-
-        $post = Post::add($request->all());
-        $post->uploadFile($request);
+        $data = $request->all();
+        $item = ( new Post())->create($data);
+        $item->uploadFile($request);
 
         return redirect()->route('categories.index')->with('message', 'Post has been created');
     }
@@ -93,27 +81,10 @@ class PostController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(PostUpdateRequest $request, $id)
     {
-        $categoriesId = Post::getCategoriesIds();
-
-        $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'content' => 'required',
-            'category_id' => 'required|numeric|in:' . $categoriesId,
-            'file' => 'max:2048'
-        ]);
-
-        if ($validator->fails()) {
-            return redirect()->back()
-                ->withErrors($validator)
-                ->withInput();
-        }
-
         $post = Post::find($id);
-        $post->edit($request->all());
 
-        //delete exists file
         if($request->file){
             $post->removeFile($post->file);
             $post->file = null;
